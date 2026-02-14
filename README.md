@@ -3,6 +3,41 @@
 A full-stack bookmark manager built using next.js (App router) and Supabase(Auth,Database,Realtime), Tailwind CSS.
 Users can authenticate with Google, add personal bookmarks and delete them.
 
+## Problems Faced and how i solved them
+
+During the development of smart-bookmark app, I ecncounterd several challenges.
+
+1. Understanding Supabase Row Level Security(RLS)
+Initially, it was unclear how Supabase enforces security when the anon key is exposed in frontend.
+I learned through AI that security is handled at the database level through RLS security.
+
+I implemented
+- SELECT: `auth.uid() = user_id`
+- INSERT (WITH CHECK): `auth.uid() = user_id`
+- DELETE: `auth.uid() = user_id`
+
+these policies.
+
+2. OAuth Redirect issued in production.
+
+After deploying the app through Vercel, authentication kept redirecting towards localhost.
+I identified that supabase's Site URL controls the final redirect after OAuth.
+
+i updated the url in url configuration.
+
+3. URL Validation and Data Integriy
+
+To Prevent invalid URL's being stored.
+I implemeted basic noremalization and validation function using built-in URL constructor
+
+4. Time Constraints
+
+Since i was unfamiliar with supabase settings and database RLS.
+To finish the webapp within the time-limit and learning the docs efficiently.
+I used ChatGPT AI to understand the methods and instances required to complete the project.
+
+
+
 ## Live-Demo
 
 https://smart-bookmark-beta.vercel.app/
